@@ -11,7 +11,7 @@ def top_3_articles():
         print('"{}" - {} views'.format(article[1], article[0]))
     db.close()
 
-def top_3_authors():
+def popular_authors():
     db = psycopg2.connect(database=DB_NAME)
     c = db.cursor()
     c.execute("select count(*), authors.name from log,articles,authors where (log.path like '/article/%' AND log.status = '200 OK' AND substr(log.path,10) = articles.slug AND articles.author=authors.id ) group by authors.name order by count(*) desc;")
@@ -29,7 +29,7 @@ def error_significant():
         print('{} - {}% errors'.format(error[1], error[0]))
     db.close()
 top_3_articles()
-top_3_authors()
+popular_authors()
 error_significant()
 
 
