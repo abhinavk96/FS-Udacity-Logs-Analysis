@@ -4,6 +4,10 @@ DB_NAME = "news"
 
 
 def top_3_articles():
+    """
+    Prints the top 3 articles from the database,
+    sortedin descending order according to views
+    """
     db = psycopg2.connect(database=DB_NAME)
     c = db.cursor()
     c.execute('''SELECT COUNT(*), articles.title FROM log,articles
@@ -19,6 +23,10 @@ def top_3_articles():
 
 
 def popular_authors():
+    """
+    Prints the list of authors and the number of times
+    their articles have been viewed in descending order of views
+    """
     db = psycopg2.connect(database=DB_NAME)
     c = db.cursor()
     c.execute('''SELECT COUNT(*), authors.name FROM log,articles,authors
@@ -35,6 +43,10 @@ def popular_authors():
 
 
 def error_significant():
+    """
+    Prints the dates from logs on which the percentage
+    of requests resulting in error is greater than 1.
+    """
     db = psycopg2.connect(database=DB_NAME)
     c = db.cursor()
     c.execute('''SELECT CAST(COUNT(CASE status WHEN '200 OK'
@@ -52,6 +64,9 @@ def error_significant():
 
 
 def generate_report():
+    """
+    Formats the output and calls other functions to generate report.
+    """
     padding = "\n===============================================\n"
     print("*********************\nLog Analysis Report\n*********************")
     print("{}The most popular three articles of all time:{}"
