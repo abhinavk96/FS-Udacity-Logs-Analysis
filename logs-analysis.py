@@ -19,5 +19,17 @@ def top_3_authors():
     for author in authors:
         print('"{}" - {} views'.format(author[1], author[0]))
     db.close()
+
+def error_significant():
+    db = psycopg2.connect(database=DB_NAME)
+    c = db.cursor()
+    c.execute("select CAST(count(case status when '200 OK' then null else 1 end)*100.00/count(*) as DECIMAL(18,2)) , TO_CHAR(time, 'FMMonth DD, YYYY') from log group by TO_CHAR(time, 'FMMonth DD, YYYY') having CAST(count(case status when '200 OK' then null else 1 end)*100.00/count(*) as DECIMAL(18,2)) > 1.00;")
+    errors = c.fetchall()
+    for error in errors:
+        print('{} - {}% errors'.format(error[1], error[0]))
+    db.close()
 top_3_articles()
 top_3_authors()
+error_significant()
+
+
