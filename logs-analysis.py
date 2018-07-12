@@ -2,13 +2,20 @@ import psycopg2
 
 DB_NAME = "news"
 
-def test_conn(name):
+def top_3_articles(name):
     db = psycopg2.connect(database=name)
     c = db.cursor()
-    c.execute("SELECT * FROM pg_catalog.pg_tables;")
-    # db.close()
-    tables = c.fetchall()
+    c.execute("select count(*), path from log where path like '/article/%' group by path order by count(*) desc limit 3;")
+    articles = c.fetchall()
+    titles = []
+    views = []
+    for article in articles:
+        slug = article[1].replace("/article/", "")
+        views.append(article[0])
+        c.execute("select title from articles where slug = '{}'".format(slug))
+        titles.append(c.fetchone()[0])
+    for title, view in zip(titles, views):
+        print('"{}" - {} views'.format(title, view))
     db.close()
-    return tables
 
-print(test_conn(DB_NAME))
+top_3_articles(DB_NAME)
