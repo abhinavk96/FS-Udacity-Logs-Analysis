@@ -14,7 +14,7 @@ It is assumed that the `postgres sql` environment is set up and the database `ne
 
 To generate the report, and print it's output in the command line, use:
 
-`python3 logs-analysis-.py`
+`python3 logs-analysis.py`
 
 To generate the report and save it in a text file, use:
 `python3 logs-analysis.py > filename.txt` 
