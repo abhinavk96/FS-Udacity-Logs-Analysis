@@ -17,7 +17,7 @@ def top_3_authors():
     c.execute("select count(*), authors.name from log,articles,authors where (log.path like '/article/%' AND log.status = '200 OK' AND substr(log.path,10) = articles.slug AND articles.author=authors.id ) group by authors.name order by count(*) desc;")
     authors = c.fetchall()
     for author in authors:
-        print('"{}" - {} views'.format(author[1], author[0]))
+        print('{} - {} views'.format(author[1], author[0]))
     db.close()
 
 def error_significant():
