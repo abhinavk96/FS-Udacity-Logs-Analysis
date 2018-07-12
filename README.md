@@ -4,11 +4,15 @@ Full Stack Developer Nano Degree Project
 ## How To Run
 
 ### Step 1: Set UP
-The project is developed in python3 and uses certain dependecies, stored in `reqirements.txt`. To install the dependencies using pip:
+The project is developed in python3 and uses certain dependecies and Postgres SQL database, stored in `reqirements.txt`. To install the dependencies using pip:
 
 `pip install -r requirements.txt`
 
 It is assumed that the `postgres sql` environment is set up and the database `news` with it's data exists.
+
+Database Creation Command for reference:
+
+`psql -d news -f newsdata.sql`
 
 ### Step 2: Generating the report
 
