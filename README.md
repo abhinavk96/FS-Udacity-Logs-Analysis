@@ -11,9 +11,7 @@ The project is developed in python3 and uses certain dependecies and Postgres SQ
 
 `pip install -r requirements.txt`
 
-It is assumed that the `postgres sql` environment is set up and the database `news` with it's data exists.
-
-Database Creation Command for reference:
+Postgres SQL is required to be set up. The file `newsdata.zip` contains the file `newsdata.sql` within it, which has all the data on which the reporting tool runs it's queries. After installing Postgres SQL, the database (named news) can be loaded using the command:
 
 `psql -d news -f newsdata.sql`
 
