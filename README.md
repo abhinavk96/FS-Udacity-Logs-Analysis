@@ -1,6 +1,9 @@
 # Logs Analysis
-Full Stack Developer Nano Degree Project 
-
+This project is a reporting tool that prints out reports (in plain text) based on the data in the database. The database called(news) has 3 tables:
+* articles - Which maintains a list of all articles
+* authors  - Maintains a list of all authors
+* logs - Maintains a log of when an article is accessed on the website and by whom.
+It is developed as a part of udacity Full Stack Developer Nano Degree.
 ## How To Run
 
 ### Step 1: Set UP
