@@ -81,4 +81,5 @@ def generate_report():
     error_significant()
     print("\n*********************\nEnd of Report\n*********************")
 
+
 generate_report()
