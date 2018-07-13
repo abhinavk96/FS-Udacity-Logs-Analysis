@@ -83,4 +83,3 @@ def generate_report():
 
 
 generate_report()
-
