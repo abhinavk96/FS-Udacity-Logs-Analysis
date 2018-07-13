@@ -7,10 +7,12 @@ It is developed as a part of udacity Full Stack Developer Nano Degree.
 ## How To Run
 
 ### Step 1: Set UP
+#### Dependencies
 The project is developed in python3 and uses certain dependecies and Postgres SQL database, stored in `reqirements.txt`. To install the dependencies using pip:
 
 `pip install -r requirements.txt`
 
+#### Database
 Postgres SQL is required to be set up. The file `newsdata.zip` contains the file `newsdata.sql` within it, which has all the data on which the reporting tool runs it's queries. After installing Postgres SQL, the database (named news) can be loaded using the command:
 
 `psql -d news -f newsdata.sql`
