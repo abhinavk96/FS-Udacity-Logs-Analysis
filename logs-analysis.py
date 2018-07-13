@@ -4,13 +4,23 @@ import psycopg2
 DB_NAME = "news"
 
 
+def connect(database_name):
+    """Connect to the PostgreSQL database.  Returns a database connection."""
+    try:
+        db = psycopg2.connect("dbname={}".format(database_name))
+        c = db.cursor()
+        return db, c
+    except psycopg2.Error as e:
+        print "Unable to connect to database"
+        sys.exit(1)
+
+
 def top_3_articles():
     """
     Prints the top 3 articles from the database,
     sortedin descending order according to views
     """
-    db = psycopg2.connect(database=DB_NAME)
-    c = db.cursor()
+    db, c = connect(DB_NAME)
     c.execute('''SELECT COUNT(*), articles.title FROM log,articles
              WHERE (log.path like '/article/%'
              AND log.status = '200 OK'
@@ -18,9 +28,9 @@ def top_3_articles():
              GROUP BY articles.title ORDER BY COUNT(*) DESC limit 3;
              ''')
     articles = c.fetchall()
+    db.close()
     for article in articles:
         print('* "{}" - {} views'.format(article[1], article[0]))
-    db.close()
 
 
 def popular_authors():
@@ -28,8 +38,7 @@ def popular_authors():
     Prints the list of authors and the number of times
     their articles have been viewed in descending order of views
     """
-    db = psycopg2.connect(database=DB_NAME)
-    c = db.cursor()
+    db, c = connect(DB_NAME)
     c.execute('''SELECT COUNT(*), authors.name FROM log,articles,authors
             WHERE (log.path like '/article/%'
             AND log.status = '200 OK'
@@ -38,9 +47,9 @@ def popular_authors():
             GROUP BY authors.name ORDER BY COUNT(*) DESC;
             ''')
     authors = c.fetchall()
+    db.close()
     for author in authors:
         print('* {} - {} views'.format(author[1], author[0]))
-    db.close()
 
 
 def error_significant():
@@ -48,8 +57,7 @@ def error_significant():
     Prints the dates from logs on which the percentage
     of requests resulting in error is greater than 1.
     """
-    db = psycopg2.connect(database=DB_NAME)
-    c = db.cursor()
+    db, c = connect(DB_NAME)
     c.execute('''SELECT CAST(COUNT(CASE status WHEN '200 OK'
              THEN NULL ELSE 1 END)*100.00/COUNT(*) as DECIMAL(18,2)),
              TO_CHAR(time, 'FMMonth DD, YYYY') FROM log
@@ -59,9 +67,9 @@ def error_significant():
              as DECIMAL(18,2)) > 1.00;
              ''')
     errors = c.fetchall()
+    db.close()
     for error in errors:
         print('* {} - {}% errors'.format(error[1], error[0]))
-    db.close()
 
 
 def generate_report():
@@ -81,5 +89,5 @@ def generate_report():
     error_significant()
     print("\n*********************\nEnd of Report\n*********************")
 
-
-generate_report()
+if __name__ == '__main__':
+    generate_report()
