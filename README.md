@@ -3,7 +3,9 @@ This project is a reporting tool that prints out reports (in plain text) based o
 * articles - Which maintains a list of all articles
 * authors  - Maintains a list of all authors
 * logs - Maintains a log of when an article is accessed on the website and by whom.
+
 It is developed as a part of udacity Full Stack Developer Nano Degree.
+
 ## How To Run
 
 ### Step 1: Set UP
@@ -44,4 +46,4 @@ The code consists of 3 primary functions which interact with the database:
 * **error_significant** : It fetches all those dates from logs on which the percentage of requests resulting in error is greater than 1.
 * **generate_report** : It is a helper function, which formats the report text and calls the other 3 functions.
 
-All the functions achieve their result using a *JOINS* in a single SQL query.
+All the functions achieve their result using *JOINS* in a single SQL query.
